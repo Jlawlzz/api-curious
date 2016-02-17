@@ -30,4 +30,12 @@ class ServicesController < ApplicationController
     end
   end
 
+  def search
+    client = set_client
+    @tracks = client.get('/tracks', q: params["search"]["search"], :license => 'cc-by')
+    respond_to do |format|
+        format.js
+    end
+  end
+
 end

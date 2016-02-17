@@ -1,1 +1,10 @@
 <h1> You are logged in <%= @user.username %> </h1>
+
+
+<%= simple_form_for :search, url: search_path, method: :post, :remote => true do |f| %>
+  <%= f.input :search, id: "search" %>
+  <%= f.submit %>
+<% end %>
+
+<div id="grid">
+</div>

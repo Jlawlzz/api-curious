@@ -29,6 +29,12 @@ gem 'echonest-ruby-api'
 
 gem 'soundcloud'
 
+gem 'simple_form'
+
+gem 'omniauth-soundcloud'
+
+gem 'responders', '~> 2.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
