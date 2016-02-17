@@ -1,12 +1,4 @@
-<div class="row">
-        <div class="col s12">
-          <div class="card blue-grey darken-1">
-            <div class="row">
-            <div class="card-content white-text">
-              <p><%= track.user.username %></p>
-              <%= link_to track.title %>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+              <div class="chip results" style="font-size:20px;height:50px;width:85%;margin-top:10px">
+                <%= image_tag track.artwork_url %> <%= track.user.username style:'vertical-align:-webkit-baseline-middle;'%> <%= link_to track.title, style:'vertical-align:-webkit-baseline-middle;'%>
+              </div>

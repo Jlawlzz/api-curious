@@ -1,10 +1,19 @@
-<h1> You are logged in <%= @user.username %> </h1>
 
+
+<div class="title container center">
+  <div class="cake-container" style="display:inline-block; vertical-align:middle; padding-bottom:15px">
+    <%= svg_tag 'cake.svg', class: 'cake-custom' %>
+  </div>
+  <h1 style="color:white; display:inline-block; vertical-align:middle;">Mix Cake</h1>
+<div>
 
 <%= simple_form_for :search, url: search_path, method: :post, :remote => true do |f| %>
-  <%= f.input :search, id: "search" %>
-  <%= f.submit %>
+  <div class="row">
+  <div class ="orange lighten-2 drop-shadow z-depth-3" style="display:inline-block;width:80%"><%= f.text_field :search, id: "search" %></div>
+  <%= f.submit "Search Soundcloud", style: "height:60px;"%>
+  </div>
 <% end %>
 
-<div id="grid">
-</div>
+
+<div class="row", id="grid"></div>
+<div class="row", id="next"></div>

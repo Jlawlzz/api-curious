@@ -13,3 +13,27 @@
  *= require_tree .
  *= require_self
  */
+
+ h1 {
+    font-size: 100px;
+    font-family: 'Karla', sans-serif;
+  }
+
+  .results {
+    font-size: 20px;
+  }
+
+ .chip img{
+   height: 50px;
+   width: 50px;
+   margin-left: -73px;
+ }
+
+  body {
+    background-color:#ff9800;
+  }
+
+ #Layer_1 {
+     fill: #ffffff;
+     transform-origin: center;
+ }
