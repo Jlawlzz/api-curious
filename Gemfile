@@ -25,15 +25,19 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'redditkit', '~> 1.0.1'
 
-gem 'echonest-ruby-api'
+gem 'echowrap'
 
 gem 'soundcloud'
 
 gem 'simple_form'
 
-gem 'omniauth-soundcloud'
-
 gem 'responders', '~> 2.0'
+
+gem 'omniauth-google-oauth2'
+
+gem 'figaro'
+
+gem 'thin'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
