@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
 
-  before_action :set_client
-
   def show
-    @user = set_client.get('/me')
+    @user = set_client.get('/me') if set_client
     @tracks = nil
   end
 

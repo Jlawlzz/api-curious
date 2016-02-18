@@ -15,7 +15,6 @@ class ServicesController < ApplicationController
       sc = SoundCloudHelper.new(set_client)
       @normalized = sc.normalize(params)
     end
-    binding.pry
   end
 
 end

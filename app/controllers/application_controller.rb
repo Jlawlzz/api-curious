@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   helper_method :set_client, :current_user
 
   def set_client
-    @client = Soundcloud.new(:access_token => session[:access_token]['access_token'])
+    @client = Soundcloud.new(:access_token => session[:access_token]['access_token']) if session[:access_token]
   end
 
   def current_user

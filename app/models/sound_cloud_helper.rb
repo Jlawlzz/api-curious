@@ -10,28 +10,29 @@ class SoundCloudHelper
 
   def normalize(params)
     artist = normalize_artist(params)
-    song = normalize_song(params)
-
+    song = normalize_song(params, artist)
     return_params(params, artist, song)
   end
 
   def normalize_artist(params)
     artist = match_artist(params[:user][:username])
-    if artist
+    if artist && (artist.name.downcase == params[:user][:username].downcase)
       artist
     else
-      parse_artist_from_title(params)
+      name = parse_artist_from_title(params)
+      match_artist(name)
     end
   end
 
-  def parse_artist_from_title(params)
-    name = params[:title].split('-').first
-    match_artist(name)
-  end
-
-  def normalize_song(params)
+  def normalize_song(params, artist)
     if remix?(params)
-      params
+      title = parse_song_from_title(params)
+      song_identifier(title)
+    elsif artist
+      match_song(params[:title], artist.name)
+    else
+      title = parse_song_from_title(params)
+      song_identifier(title)
     end
   end
 
@@ -39,23 +40,57 @@ class SoundCloudHelper
     params[:title].downcase.include?('remix') || params[:title].downcase.include?('bootleg')
   end
 
+  def song_identifier(title)
+    Echowrap.song_search(title: title).first
+  end
+
+  def parse_artist_from_title(params)
+    params[:title].split('-').first
+  end
+
   def match_artist(artist_name)
     Echowrap.artist_search(name: artist_name.downcase).first
   end
 
+  def parse_song_from_title(params)
+    params[:title].split('-')[1]
+  end
+
+  def match_song(song_title, artist_name)
+    Echowrap.song_search(title: song_title.downcase, artist: artist_name.downcase).first
+  end
 
   def return_params(params, artist=nil, song=nil)
+    artist = set_artist_params(params, artist)
+    song = set_song_params(params, song)
+
     {params:
       {artist:
-        {name: artist.name,
-         echo_id: artist.id,
-         sc_id: params[:user][:id]
+        {name: artist[:name],
+         echo_id: artist[:echo_id],
+         sc_id: artist[:sc_id]
         },
        song:
-        {title: params[:title],
-         sc_id: params[:id],
-         sc_stream: params[:stream_url]}
+        {title: song[:title],
+         sc_id: song[:sc_id],
+         sc_stream: song[:sc_stream],
+         echo_id: song[:echo_id]
         }
+       }
       }
+  end
+
+  def set_artist_params(params, artist=nil)
+    if artist
+      {name: artist.name, sc_id: params[:user][:id], echo_id: artist.id}
+    end
+  end
+
+  def set_song_params(params, song=nil)
+    if song
+      {title: song.title, sc_id: params[:id], sc_stream: params[:stream_url], echo_id: song.id}
+    else
+      {title: params[:title], sc_id: params[:id], sc_stream: params[:stream_url]}
+    end
   end
 end
