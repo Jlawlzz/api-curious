@@ -10,13 +10,33 @@ class ServicesController < ApplicationController
     end
   end
 
-  def add_to_playlist
+  def add_to_queue
     if params[:service] == 'soundcloud'
       sc = SoundCloudHelper.new(set_client)
       @normalized = sc.normalize(params)
     end
     find_or_create_params
-    append_to_or_create_playlist
+    play_or_queue
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def play_or_queue
+    if session[:queue]
+      append_to_queue
+    else
+      session[:queue] = []
+      append_to_queue
+    end
+  end
+
+  def play_song
+    if params[:service] == 'soundcloud'
+      sc = SoundCloudHelper.new(set_client)
+      @normalized = sc.normalize(params)
+    end
+    find_or_create_params
     respond_to do |format|
       format.js
     end
@@ -70,6 +90,10 @@ class ServicesController < ApplicationController
     (@song.echo_id = @normalized[:song][:echo_id]) if @normalized[:song][:echo_id]
     @song.save
     @song
+  end
+
+  def append_to_queue
+    session[:queue] << @song
   end
 
   def append_to_or_create_playlist

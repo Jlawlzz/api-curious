@@ -1,11 +1,11 @@
 <div class="container center">
 <h6 style="color:#FFFFFF;"><%= song.artist.name %></h6>
 <h5 style="color:#FFFFFF;"><%= song.title %></h5>
+<a class="btn-floating transparent" id="prev-button"><i class="material-icons">skip_previous</i></a>
 <a class="btn-floating transparent" id="pause-button"><i class="material-icons">pause_circle_outline</i></a>
 <a class="btn-floating transparent" id="play-button"><i class="material-icons">play_circle_outline</i></a>
+<a class="btn-floating transparent" id="next-button"><i class="material-icons">skip_next</i></a>
 </div>
-
-<%= image_tag song.sc_art %>
 
 <script>
 $('#play-button').hide()

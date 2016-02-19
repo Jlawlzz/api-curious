@@ -2,9 +2,11 @@
    <li class="collection-item avatar" style="background-color:rgba(20, 20, 20, 0.3)">
      <%= image_tag track.artwork_url, class:"circle"%>
      <span class="title"><%= link_to track.title %></span>
-     <p><%= track.user.username %>
+     <p style="color:white;"><%= track.user.username %>
      </p>
-     <%= button_to "ADD", add_to_playlist_path(track),
-         class: "btn-floating btn-large waves-effect waves-light light-blue darken-4 secondary-content",
-         style: "height:50px;width:50px;", method: :post, params: {service: 'soundcloud'}, remote: true %>
+
+     <%= button_to "play now", play_song_path(track),
+         class: "secondary-content play-button", style:"margin-right:160px", method: :post, params: {service: 'soundcloud'}, remote: true %>
+     <%= button_to "add to queue", add_to_queue_path(track),
+         class: "secondary-content play-button", method: :post, params: {service: 'soundcloud'}, remote: true %>
    </li>

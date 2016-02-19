@@ -94,9 +94,9 @@ class SoundCloudHelper
 
   def set_song_params(params, song=nil)
     if song
-      {title: song.title, sc_id: params[:id], sc_stream: params[:stream_url], echo_id: song.id}
+      {title: song.title, sc_id: params[:id], sc_stream: params[:stream_url], echo_id: song.id, artwork_url: params[:artwork_url]}
     else
-      {title: parse_song_from_title(params), sc_id: params[:id], sc_stream: params[:stream_url]}
+      {title: parse_song_from_title(params), sc_id: params[:id], sc_stream: params[:stream_url], artwork_url: params[:artwork_url]}
     end
   end
 end

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
 
   def set_client
     @client = Soundcloud.new(:access_token => session[:access_token]['access_token']) if session[:access_token]
+    @client
   end
 
   def current_user
@@ -15,5 +16,9 @@ class ApplicationController < ActionController::Base
 
   def current_playlist
     @current_playlist ||= Playlist.find(session[:playlist]) if session[:playlist]
+  end
+
+  def queue
+    session[:queue]
   end
 end
