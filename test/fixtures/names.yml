@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  echo_id: 1
+  sc_id: 1
+
+two:
+  echo_id: 1
+  sc_id: 1

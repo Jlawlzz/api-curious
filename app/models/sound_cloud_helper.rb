@@ -29,7 +29,8 @@ class SoundCloudHelper
       title = parse_song_from_title(params)
       song_identifier(title)
     elsif artist
-      match_song(params[:title], artist.name)
+      title = parse_song_from_title(params)
+      match_song(title, artist.name)
     else
       title = parse_song_from_title(params)
       song_identifier(title)
@@ -41,7 +42,7 @@ class SoundCloudHelper
   end
 
   def song_identifier(title)
-    Echowrap.song_search(title: title).first
+    Echowrap.song_search(title: title).first if title
   end
 
   def parse_artist_from_title(params)
@@ -53,7 +54,11 @@ class SoundCloudHelper
   end
 
   def parse_song_from_title(params)
-    params[:title].split('-')[1]
+     if params[:title].include?('-')
+       params[:title].split('-')[1]
+     else
+       params[:title]
+     end
   end
 
   def match_song(song_title, artist_name)
@@ -64,7 +69,6 @@ class SoundCloudHelper
     artist = set_artist_params(params, artist)
     song = set_song_params(params, song)
 
-    {params:
       {artist:
         {name: artist[:name],
          echo_id: artist[:echo_id],
@@ -77,12 +81,13 @@ class SoundCloudHelper
          echo_id: song[:echo_id]
         }
        }
-      }
   end
 
   def set_artist_params(params, artist=nil)
     if artist
       {name: artist.name, sc_id: params[:user][:id], echo_id: artist.id}
+    else
+      {}
     end
   end
 
@@ -90,7 +95,7 @@ class SoundCloudHelper
     if song
       {title: song.title, sc_id: params[:id], sc_stream: params[:stream_url], echo_id: song.id}
     else
-      {title: params[:title], sc_id: params[:id], sc_stream: params[:stream_url]}
+      {title: parse_song_from_title(params), sc_id: params[:id], sc_stream: params[:stream_url]}
     end
   end
 end
