@@ -18,7 +18,4 @@ class ApplicationController < ActionController::Base
     @current_playlist ||= Playlist.find(session[:playlist]) if session[:playlist]
   end
 
-  def queue
-    session[:queue]
-  end
 end

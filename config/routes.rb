@@ -5,8 +5,12 @@ Rails.application.routes.draw do
 
 
   post '/search', to: 'services#search'
-  post '/add_to_queue', to: 'services#add_to_queue'
-  post '/play_song', to: 'services#play_song'
+
+  post '/add_to_queue', to: 'players#add_to_queue'
+  post '/play_song', to: 'players#play_song'
+  post '/next_song', to: 'players#next_song'
+  post '/prev_song', to: 'players#prev_song'
+  post '/clear_queue', to: 'players#clear_queue'
 
   get '/auth/:provider/callback', to: 'sessions#create'
   resources :services, only: [:new]

@@ -1,1 +1,1 @@
-$("#grid").html("<%= escape_javascript(render partial: '/users/item_collection', locals: {tracks: @tracks}) %>");
+$("#grid").html("<%= escape_javascript(render partial: '/services/item_collection', locals: {tracks: @tracks}) %>");

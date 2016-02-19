@@ -38,20 +38,7 @@ class SessionsController < ApplicationController
                         :redirect_uri => 'http://localhost:3000/callback')
     code = params[:code]
     session[:access_token] = client.exchange_token(:code => code)
-    username = set_client.get('/me').username
-    user = User.find_by(username: username)
-    route_login(user)
-  end
-
-  def route_login(user)
-    if user
-      session[:user_id] = user.id
-      redirect_to user_path(user)
-    else
-      user = User.create(username: username)
-      session[:user_id] = user.id
-      redirect_to user_path(user)
-    end
+    redirect_to user_path(current_user)
   end
 
 end

@@ -1,0 +1,3 @@
+<h5 style="color:white;padding-left:32px">queue</h5>
+<%= button_to "clear", clear_queue_path, id:'clear-button', remote: true %>
+<%= render partial: '/players/queue_item', collection: songqueue, as: :song %>

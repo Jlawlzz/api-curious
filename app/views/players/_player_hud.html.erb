@@ -7,6 +7,7 @@
 <a class="btn-floating transparent" id="next-button"><i class="material-icons">skip_next</i></a>
 </div>
 
+
 <script>
 $('#play-button').hide()
 
@@ -20,6 +21,22 @@ $('#play-button').click(function(){
   context.resume()
   $(this).hide()
   $('#pause-button').show()
+})
+
+$('#next-button').click(function(){
+  $.ajax({
+          type: 'POST',
+          url: '/next_song',
+          data: { song: <%= song.id %>}
+      });
+})
+
+$('#prev-button').click(function(){
+  $.ajax({
+          type: 'POST',
+          url: '/prev_song',
+          data: { song: <%= song.id %>}
+      });
 })
 
 </script>
