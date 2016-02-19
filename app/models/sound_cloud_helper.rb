@@ -78,7 +78,8 @@ class SoundCloudHelper
         {title: song[:title],
          sc_id: song[:sc_id],
          sc_stream: song[:sc_stream],
-         echo_id: song[:echo_id]
+         echo_id: song[:echo_id],
+         sc_art: song[:artwork_url]
         }
        }
   end

@@ -93,6 +93,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
+    material_icons (2.0.1)
+      railties (>= 3.2)
     method_source (0.8.2)
     mime-types (2.99)
     mimemagic (0.3.1)
@@ -219,6 +221,7 @@ DEPENDENCIES
   gon
   jbuilder (~> 2.0)
   jquery-rails
+  material_icons
   omniauth-google-oauth2
   pry
   rails (= 4.2.5)

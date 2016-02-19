@@ -1,9 +1,10 @@
 
-  <div class="chip results" style="font-size:20px;height:50px;min-width:1000px;margin-top:10px;z-index:-15">
-    <%= image_tag track.artwork_url %>
-    <%= track.user.username style:'vertical-align:-webkit-baseline-middle;'%>
-    <%= link_to track.title, style:'vertical-align:-webkit-baseline-middle;'%>
-  </div>
-  <%= button_to "ADD", add_to_playlist_path(track),
-      class: "btn-floating btn-large waves-effect waves-light red",
-      style: "height:50px;width:50px;", method: :post, params: {service: 'soundcloud'}, remote: true %>
+   <li class="collection-item avatar" style="background-color:rgba(20, 20, 20, 0.3)">
+     <%= image_tag track.artwork_url, class:"circle"%>
+     <span class="title"><%= link_to track.title %></span>
+     <p><%= track.user.username %>
+     </p>
+     <%= button_to "ADD", add_to_playlist_path(track),
+         class: "btn-floating btn-large waves-effect waves-light light-blue darken-4 secondary-content",
+         style: "height:50px;width:50px;", method: :post, params: {service: 'soundcloud'}, remote: true %>
+   </li>

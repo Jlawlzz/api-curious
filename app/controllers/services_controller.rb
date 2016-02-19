@@ -65,7 +65,8 @@ class ServicesController < ApplicationController
   def create_song
     @song = Song.create(title: @normalized[:song][:title],
                         sc_id: @normalized[:song][:sc_id],
-                        sc_stream: @normalized[:song][:sc_stream])
+                        sc_stream: @normalized[:song][:sc_stream],
+                        sc_art: @normalized[:song][:sc_art])
     (@song.echo_id = @normalized[:song][:echo_id]) if @normalized[:song][:echo_id]
     @song.save
     @song
