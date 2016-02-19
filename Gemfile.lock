@@ -65,6 +65,11 @@ GEM
       thor (~> 0.14)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    gon (6.0.1)
+      actionpack (>= 3.0)
+      json
+      multi_json
+      request_store (>= 1.0)
     hashie (2.1.2)
     htmlentities (4.3.4)
     httmultiparty (0.3.16)
@@ -153,6 +158,7 @@ GEM
       faraday (~> 0.8)
       htmlentities (~> 4.3)
       multi_json (~> 1.8)
+    request_store (1.3.0)
     responders (2.1.1)
       railties (>= 4.2.0, < 5.1)
     sass (3.4.21)
@@ -210,6 +216,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   echowrap
   figaro
+  gon
   jbuilder (~> 2.0)
   jquery-rails
   omniauth-google-oauth2

@@ -1,7 +1,12 @@
-<%= link_to "Login to Soundcloud", new_session_path('soundcloud') %>
 
+
+<div class="row play-window ", id="play-window" style="width:100vw;height:150px;position:absolute;bottom:0;margin-bottom:0px;background-color:rgba(20, 20, 20, 0.5);position:fixed;z-index:100"></div>
+<div class="row next-window", id="next-window" style="height:100vh;width:150px;position:absolute;left:0;margin-left:0px;background-color:rgba(20, 20, 20, 0.5);position:fixed"></div>
+
+<div style="padding-left:150px;">
+<%= link_to "Login to Soundcloud", new_session_path('soundcloud') %>
 <div class="title container center">
-  <div class="cake-container" style="display:inline-block; vertical-align:middle; padding-bottom:15px">
+  <div class="cake-container" style="display:inline-block; vertical-align:middle; padding-bottom:15px;">
     <%= svg_tag 'cake.svg', class: 'cake-custom' %>
   </div>
   <h1 style="color:white; display:inline-block; vertical-align:middle;">Mix Cake</h1>
@@ -9,10 +14,30 @@
 
 <%= simple_form_for :soundcloud, url: search_path, method: :post, :remote => true do |f| %>
   <div class="row">
-  <div class ="orange lighten-2 drop-shadow z-depth-3" style="display:inline-block;width:80%"><%= f.text_field :search, id: "search" %></div>
+  <div class ="orange lighten-2 drop-shadow z-depth-3" style="display:inline-block;width:80%;"><%= f.text_field :search, id: "search" %></div>
   <%= f.submit "Search Soundcloud", style: "height:60px;"%>
   </div>
 <% end %>
 
 <div class="row", id="grid"></div>
-<div class="row", id="next"></div>
+
+</div>
+
+<script>
+
+var context, source, audio
+
+function setup(){
+}
+
+var playSong = function(trackID){
+    context = new webkitAudioContext()
+    audio = new Audio(), source, url = 'http://api.soundcloud.com/tracks/' + trackID + '/stream' + '?client_id=e6cec03e9db1f86a994857320fa6b7e3'
+    audio.crossOrigin = "anonymous"
+    audio.src = url
+    source = context.createMediaElementSource(audio)
+    source.connect(context.destination)
+    source.mediaElement.play()
+}
+
+</script>

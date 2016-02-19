@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160219022025) do
+ActiveRecord::Schema.define(version: 20160219034113) do
 
   create_table "artists", force: :cascade do |t|
     t.string   "name"
@@ -21,17 +21,28 @@ ActiveRecord::Schema.define(version: 20160219022025) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "playlists", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "playlists", ["user_id"], name: "index_playlists_on_user_id"
+
   create_table "songs", force: :cascade do |t|
     t.string   "title"
     t.string   "echo_id"
     t.integer  "sc_id"
     t.string   "sc_stream"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "artist_id"
+    t.integer  "playlist_id"
   end
 
   add_index "songs", ["artist_id"], name: "index_songs_on_artist_id"
+  add_index "songs", ["playlist_id"], name: "index_songs_on_playlist_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "username"

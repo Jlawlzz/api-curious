@@ -16,7 +16,10 @@ class ServicesController < ApplicationController
       @normalized = sc.normalize(params)
     end
     find_or_create_params
-    binding.pry
+    append_to_or_create_playlist
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
@@ -56,13 +59,27 @@ class ServicesController < ApplicationController
   end
 
   def find_song_by_echo_id
-    @song = Song.find_by(echo_id: @normalized[:song][:echo_id])
+    @song = Song.find_by(echo_id: @normalized[:song][:echo_id]) if @normalized[:song][:echo_id]
   end
 
   def create_song
     @song = Song.create(title: @normalized[:song][:title],
-                        echo_id: @normalized[:song][:echo_id],
                         sc_id: @normalized[:song][:sc_id],
                         sc_stream: @normalized[:song][:sc_stream])
+    (@song.echo_id = @normalized[:song][:echo_id]) if @normalized[:song][:echo_id]
+    @song.save
+    @song
+  end
+
+  def append_to_or_create_playlist
+    if current_playlist
+      current_playlist.songs << @song
+    else
+      playlist = Playlist.create(user_id: current_user.id)
+      session[:current_playlist] = playlist
+      playlist.songs << @song
+      current_user.playlists << playlist
+    end
+    @playlist = current_playlist
   end
 end
