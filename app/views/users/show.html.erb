@@ -1,23 +1,36 @@
 
+
+<div id="album-artwork" class="drop-shadow z-depth-3", style="height:170px;width:170px;position:fixed;bottom:0px;z-index:218;background-color:#F79708;padding-top:15px;padding-left:15px;">
+
+</div>
+
 <div class="row play-window", id="play-window">
-  <div id="tint" style="height:150px;width:100vw;position:absolute;bottom:0;margin-left:0px;background-color:rgba(20, 20, 20, 0.5);position:fixed;">
+  <div id="tint" style="height:150px;width:100vw;position:absolute;bottom:0;margin-left:0px;background-color:rgba(20, 20, 20, .7);position:fixed;padding-top:15px;">
 
   </div>
 </div>
-<div class="row next-window", id="next-window" style="height:100vh;width:150px;position:absolute;left:0;margin-left:0px;background-color:rgba(20, 20, 20, 0.5);position:fixed;">
 
+<div class="row next-window", id="next-window" style="height:auto;width:150px;left:0;margin-left:0px;background-color:rgba(20, 20, 20, 0.7);position:fixed;">
+  <% if session[:queue] %>
+    <%= render partial: '/players/queue', locals: {songqueue: session[:queue]} %>
+  <% end %>
 </div>
+
+<div class="title container center">
+  <div class="cake-container" style="display:inline-block;vertical-align:middle;">
+    <%= svg_tag 'cake.svg', class: 'cake-custom' %>
+   <h1 style="color:white; display:inline-block;position:relative;top:-23px;">Mix Cake</h1>
+  </div>
+</div>
+
 <div style="padding-left:150px;padding-top:40px">
   <div class="title container center">
-    <div class="cake-container" style="display:inline-block;vertical-align:middle;">
-      <%= svg_tag 'cake.svg', class: 'cake-custom' %>
-    </div>
-    <h1 style="color:white; display:inline-block; vertical-align:middle;">Mix Cake</h1>
+
     <% if set_client %>
     <%= simple_form_for :soundcloud, url: search_path, method: :post, :remote => true do |f| %>
     <div class="row">
       <div class ="blue lighten-2 drop-shadow z-depth-3" style="width:80%;"><%= f.text_field :search, id: "search" %></div>
-      <%= f.submit "Search", id: "search-button"%>
+      <%= f.submit "Search", id: "search-button", class:"drop-shadow z-depth-3"%>
     </div>
     <% end %>
     <% else %>
@@ -27,14 +40,11 @@
   <div class="row", id="grid"></div>
 </div>
 
+
 <script>
 
-var context, source, audio
 
 context = new webkitAudioContext()
-
-function setup(){
-}
 
 var playSong = function(trackID){
 
@@ -46,9 +56,31 @@ var playSong = function(trackID){
   audio = new Audio(), source, url = 'http://api.soundcloud.com/tracks/' + trackID + '/stream' + '?client_id=e6cec03e9db1f86a994857320fa6b7e3'
   audio.crossOrigin = "anonymous"
   audio.src = url
-  source = context.createMediaElementSource(audio)
-  source.connect(context.destination)
-  source.mediaElement.play()
+  source = context.createMediaElementSource(audio);
+  analyser = context.createAnalyser();
+  analyser.fftSize = 256;
+  var bufferLength = analyser.frequencyBinCount;
+  console.log(bufferLength);
+  var dataArray = new Uint8Array(bufferLength);
+  source.connect(analyser);
+  analyser.connect(context.destination);
+  source.mediaElement.play();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+var context, source, audio, analyser
+
+
 
 </script>

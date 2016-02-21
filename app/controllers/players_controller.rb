@@ -41,19 +41,21 @@ class PlayersController < ApplicationController
     session[:queue].each.with_index do |song, index|
       (@index = index) if (song['id'] == params[:song].to_i)
     end
-
     if session[:queue][@index + 1]
       @song = Song.find(session[:queue][@index + 1]['id'].to_i)
     else
       @song = Song.find(session[:queue][0]['id'].to_i)
     end
+    session[:queue].rotate!
     @artist = @song.artist
     play_song
   end
 
   def prev_song
     session[:queue].each.with_index do |song, index|
-      (@index = index) if (song['id'] == params[:song].to_i)
+      if (song['id'] == params[:song].to_i)
+        (@index = index)
+      end
     end
     if session[:queue][@index - 1]
       @song = Song.find(session[:queue][@index - 1]['id'])
@@ -96,7 +98,7 @@ class PlayersController < ApplicationController
   end
 
   def append_to_queue
-    session[:queue] << {'id' => @song.id, 'sc_art' => @song.sc_art, 'artist' => @artist.name, 'title' => @song.title}
+    session[:queue] << {'id' => @song.id, 'sc_art' => @song.sc_art, 'artist' => @artist.name, 'title' => @song.title, 'status' => 'live'}
     @songqueue = session[:queue]
   end
 
