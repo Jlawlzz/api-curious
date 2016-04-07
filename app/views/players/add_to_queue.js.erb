@@ -1,6 +1,6 @@
 <% if session[:queue].count == 1 %>
   $("#tint").html("<%= escape_javascript(render partial: '/players/player_hud', locals: {song: @song}) %>");
-$("#album-artwork").html('<%= escape_javascript( image_tag @song.sc_art, class:"drop-shadow z-depth-3", style:"width:140px;height:140px;z-index:100;" )%>');
+  $("#album-artwork").html('<%= escape_javascript( image_tag @song.sc_art, class:"drop-shadow z-depth-3", style:"width:140px;height:140px;z-index:100;" )%>');
   playSong(<%= @song.sc_id.to_json %>)
 <% end %>
 

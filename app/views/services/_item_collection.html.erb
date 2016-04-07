@@ -1,6 +1,9 @@
 
 <ul class="collection container" style="border:2px;left:-17px;"=>
+
   <h3 style="position:absolute;color:white;">Results:</h3>
+  <%= link_to 'Clear', '/', remote: true, style:'position:absolute;color:white;right:0px;font-size:50px' %>
+
   <li class="collection-item avatar" style="background-color:rgba(20, 20, 20, 0.0);padding-top:20px"><li>
 
     <%= render partial: '/services/item_grid', collection: tracks, as: :track %>

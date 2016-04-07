@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
                         :client_secret => '82d05d53abcd4e4b44a4e1ddf5baed29',
                         :redirect_uri => 'http://localhost:3000/callback')
     code = params[:code]
-    session[:access_token] = client.exchange_token(:code => code)
+    session[:soundcloud_auth] = client.exchange_token(:code => code)
     redirect_to user_path(current_user)
   end
 

@@ -62,6 +62,7 @@ class PlayersController < ApplicationController
     else
       @song = Song.find(session[:queue][-1]['id'])
     end
+    session[:queue].rotate!(-(session[:queue].count + 1))
     @artist = @song.artist
     play_song
   end
@@ -98,7 +99,7 @@ class PlayersController < ApplicationController
   end
 
   def append_to_queue
-    session[:queue] << {'id' => @song.id, 'sc_art' => @song.sc_art, 'artist' => @artist.name, 'title' => @song.title, 'status' => 'live'}
+    session[:queue] << {'id' => @song.id, 'sc_art' => @song.sc_art, 'artist' => @artist.name, 'title' => @song.title}
     @songqueue = session[:queue]
   end
 
