@@ -9,18 +9,18 @@
 
 
 <script>
-$('#play-button').hide()
+$('#play-button').hide();
 
 $('#pause-button').click(function(){
-  context.suspend()
-  $(this).hide()
-  $('#play-button').show()
-})
+  context.suspend();
+  $(this).hide();
+  $('#play-button').show();
+});
 
 $('#play-button').click(function(){
-  context.resume()
-  $(this).hide()
-  $('#pause-button').show()
+  context.resume();
+  $(this).hide();
+  $('#pause-button').show();
 })
 
 $('#next-button').click(function(){
@@ -29,7 +29,7 @@ $('#next-button').click(function(){
           url: '/next_song',
           data: { song: <%= song.id %>}
       });
-})
+});
 
 $('#prev-button').click(function(){
   $.ajax({
@@ -37,6 +37,6 @@ $('#prev-button').click(function(){
           url: '/prev_song',
           data: { song: <%= song.id %>}
       });
-})
+});
 
 </script>
